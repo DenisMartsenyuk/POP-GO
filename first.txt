@@ -1,0 +1,4 @@
+git clone https://github.com/DenisMartsenyuk/POP-GO.git
+git add first.txt
+git commit -m 'fc'
+git push https://github.com/DenisMartsenyuk/POP-GO.git
