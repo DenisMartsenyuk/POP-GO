@@ -2,7 +2,7 @@ from tkinter import *
 
 
 class Point(object):
-    def __init__(self, canvas, x, y, r, color):
+    def __init__(self, canvas: Canvas, x, y, r, color):
         self.canvas = canvas
         self.x = x
         self.y = y
