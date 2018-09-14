@@ -7,6 +7,7 @@ class Point(object):
         self.y = y
         self.r = r
         self.color = color
+        self.used = False
         self.instance = None
 
     def draw(self):

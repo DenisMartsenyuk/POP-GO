@@ -30,7 +30,7 @@ canv = Canvas(root, width=680, height=720, bg='white')
 
 canv.pack()
 canv.create_rectangle(20, 20, 660, 660, fill="white", outline="black", width=3)
-
+canv.delete(None)
 for i in range(32):
     canv.create_line(i * 20 + 20, 20, i * 20 + 20, 660, width=1)
     canv.create_line(20, i * 20 + 20, 660, i * 20 + 20, width=1)
