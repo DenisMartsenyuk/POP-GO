@@ -1,5 +1,6 @@
 from tkinter import *
 
+
 class Point(object):
     def __init__(self, canvas, x, y, r, color):
         self.canvas = canvas
@@ -7,7 +8,6 @@ class Point(object):
         self.y = y
         self.r = r
         self.color = color
-        self.used = False
         self.instance = None
 
     def draw(self):
