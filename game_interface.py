@@ -28,8 +28,8 @@ class GameInterface(Tk):
         self.game_menu = GameMenu(self)
         self.game_menu.place(x=2 * Config.Field.CANV_INDENTS + (n + 1) * l, y=Config.Field.CANV_INDENTS)
 
-    def change(self, hull, score1, score2, points):
-        self.field.draw_hull(hull, points)
+    def display(self, hull, score1, score2, points):
+        self.field.display(hull, points)
         self.game_menu.score(score1, score2)
 
     def lock(self):
