@@ -2,6 +2,7 @@ from tkinter import *
 from config import *
 from random import randint
 
+
 class GameMenu(Canvas):
     def __init__(self, master):
         size = Config.GameMenu.SIZE
