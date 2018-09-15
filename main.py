@@ -22,4 +22,3 @@ field.draw_hull(h)
 #field.draw_hull([])
 root.mainloop()
 
-
