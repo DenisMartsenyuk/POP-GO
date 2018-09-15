@@ -9,6 +9,7 @@ from config import *
 class GameInterface(Tk):
     def __init__(self, choose_point_callback):
         super().__init__()
+        self.locked = False
         n = Config.Field.CELL_COUNT
         l = Config.Field.CELL_SIZE
         hsize = (n + 1) * l + 2 * Config.Field.CANV_INDENTS
@@ -27,3 +28,11 @@ class GameInterface(Tk):
     def change(self, hull, score1, score2, points):
         self.field.draw_hull(hull, points)
         self.game_menu.score(score1, score2)
+
+    def lock(self):
+        self.locked = True
+        self.field.lock()
+
+    def unlock(self):
+        self.locked = False
+        self.field.unlock()

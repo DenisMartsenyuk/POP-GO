@@ -9,8 +9,6 @@ class GameMenu(Canvas):
         col = Config.GameMenu.COLOR
         n = Config.Field.CELL_COUNT
         l = Config.Field.CELL_SIZE
-        a = randint(0, 100)
-        b = randint(0, 100)
 
         hsize = (n + 1) * l
         super().__init__(master, width=size, height=hsize, highlightthickness=0)
@@ -26,7 +24,7 @@ class GameMenu(Canvas):
         self.lbb.grid(row=2, column=0, sticky=W)
         self.you = 'You: '
         self.op = 'Enemy: '
-        self.score(a, b)
+        self.score(0, 0)
         #frm.pack()
 
     def score(self, a, b):

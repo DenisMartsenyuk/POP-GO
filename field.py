@@ -11,8 +11,10 @@ def dist(x1, y1, x2, y2):
 
 color = {-1: Config.Point.PLAYER2_COLOR, 0: Config.Point.UNUSED_COLOR, 1: Config.Point.PLAYER1_COLOR}
 
+
 class Field(Canvas):
     def __init__(self, master, press_callback=None):
+        self.locked = False
         n = Config.Field.CELL_COUNT
         l = Config.Field.CELL_SIZE
         size = (n + 1) * l
@@ -32,18 +34,20 @@ class Field(Canvas):
         self.covered_point = None
         self.bind('<Motion>', lambda e: self.cover_handle(e.x, e.y))
         def press(event):
-            point = self.nearest_active_point(event.x, event.y)
-            if point is not None:
-                press_callback(point.y // Config.Field.CELL_SIZE - 1, point.x // Config.Field.CELL_SIZE - 1)
+            if not self.locked:
+                point = self.nearest_active_point(event.x, event.y)
+                if point is not None:
+                    press_callback(point.y // Config.Field.CELL_SIZE - 1, point.x // Config.Field.CELL_SIZE - 1)
         self.bind('<Button-1>', press)
         self.hulls = []
 
     def cover_handle(self, x, y):
-        if self.covered_point is not None:
-            self.covered_point.uncover()
-        self.covered_point = self.nearest_active_point(x, y)
-        if self.covered_point is not None:
-            self.covered_point.cover()
+        if not self.locked:
+            if self.covered_point is not None:
+                self.covered_point.uncover()
+            self.covered_point = self.nearest_active_point(x, y)
+            if self.covered_point is not None:
+                self.covered_point.cover()
 
     def nearest_active_point(self, x, y):
         for line in self.points:
@@ -72,3 +76,11 @@ class Field(Canvas):
             pointa = self.points[i[1]][i[0]]
             pointb = self.points[j[1]][j[0]]
             self.hulls.append(self.create_line(pointa.x, pointa.y, pointb.x, pointb.y, fill=pointa.color, width=2))
+
+    def lock(self):
+        self.locked = True
+        if self.covered_point is not None:
+            self.covered_point.uncover()
+
+    def unlock(self):
+        self.locked = False
