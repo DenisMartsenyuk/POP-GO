@@ -24,35 +24,40 @@ class Field(Canvas):
             self.create_line(l * i, 0, l * i, size)
             self.create_line(0, l * i, size, l * i)
         self.points = [[None] * n for i in range(n)]
-
-        for i in range(n):
-            for j in range(n):
-                self.points[i][j] = Point(self, l * (i + 1), l * (j + 1), 2, Config.Point.UNUSED_COLOR)
+        for j in range(n):
+            for i in range(n):
+                self.points[i][j] = Point(self, l * (i + 1), l * (j + 1), Config.Point.RADIUS, Config.Point.UNUSED_COLOR)
                 self.points[i][j].draw()
-        # todo: new handle cover points
         self.covered_point = None
         self.bind('<Motion>', lambda e: self.cover_handle(e.x, e.y))
         def press(event):
-            i, j = self.nearest_point(event.x, event.y)
-            if i != -1:
-                press_callback(i, j)
+            point = self.nearest_point(event.x, event.y)
+            if point is not None:
+                press_callback(point.y // Config.Field.CELL_SIZE - 1, point.x // Config.Field.CELL_SIZE - 1)
         self.bind('<Button-1>', press)
+        self.hulls = []
 
     def cover_handle(self, x, y):
         if self.covered_point is not None:
             self.covered_point.uncover()
-        i, j = self.nearest_point(x, y)
-        self.covered_point = self.points[i][j] if i != -1 else None
+        self.covered_point = self.nearest_point(x, y)
         if self.covered_point is not None:
             self.covered_point.cover()
 
     def nearest_point(self, x, y):
-        for i in range(len(self.points)):
-            for j in range(len(self.points[i])):
-                point = self.points[i][j]
+        for line in self.points:
+            for point in line:
                 if dist(x, y, point.x, point.y) < Config.Field.VICINITY_DIST:
-                    return (i, j)
-        return (-1, -1)
+                    return point
+        return None
 
-    def update(self, info):
-        pass
+    def draw_hull(self, hull):
+        # clear
+        for obj in self.hulls:
+            self.delete(obj)
+        self.hulls.clear()
+        for (i, j) in hull:
+            pointa = self.points[i[0]][i[1]]
+            pointb = self.points[j[0]][j[1]]
+            print(pointa, pointb)
+            self.hulls.append(self.create_line(pointa.x, pointa.y, pointb.x, pointb.y, fill=pointa.color, width=2))

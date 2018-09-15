@@ -4,7 +4,7 @@ class Config:
         CELL_SIZE = 20
         CELL_COUNT = 32
         CANV_INDENTS = 10
-        CANV_COLOR = "#bedce3"
+        CANV_COLOR = "white"
         VICINITY_DIST = CELL_SIZE * 3/8
 
     class Point:

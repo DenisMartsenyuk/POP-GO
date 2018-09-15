@@ -2,6 +2,7 @@ from tkinter import *
 
 from config import *
 
+
 class Point(object):
     def __init__(self, canvas: Canvas, x, y, r, color):
         self.canvas = canvas
@@ -30,3 +31,6 @@ class Point(object):
     def uncover(self):
         self.r = Config.Point.RADIUS
         self.update()
+
+    def __str__(self):
+        return '({}, {})'.format(self.x, self.y)

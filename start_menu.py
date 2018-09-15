@@ -1,5 +1,5 @@
 from tkinter import *
-from
+from config import Config
 
 
 class StartMenu(Toplevel):
