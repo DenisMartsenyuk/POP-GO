@@ -19,4 +19,4 @@ class Config:
 
     class GameMenu:
         COLOR = 'white'
-        SIZE =  250
+        SIZE = 250
