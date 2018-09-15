@@ -9,6 +9,7 @@ import math
 def dist(x1, y1, x2, y2):
     return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
+color = {-1: 'green', 0: 'gray', 1: 'red'}
 
 class Field(Canvas):
     def __init__(self, master, press_callback=None):
@@ -51,12 +52,18 @@ class Field(Canvas):
                     return point
         return None
 
-    def draw_hull(self, hull):
+
+    def draw_hull(self, hull, points):
+        print(points)
+        for i in range(len(points)):
+            for j in range(len(points)):
+                self.points[i][j].color = color[points[j][i].color]
+                self.points[i][j].update()
         # clear
         for obj in self.hulls:
             self.delete(obj)
         self.hulls.clear()
         for (i, j) in hull:
-            pointa = self.points[i[0]][i[1]]
-            pointb = self.points[j[0]][j[1]]
+            pointa = self.points[i[1]][i[0]]
+            pointb = self.points[j[1]][j[0]]
             self.hulls.append(self.create_line(pointa.x, pointa.y, pointb.x, pointb.y, fill=pointa.color, width=2))
