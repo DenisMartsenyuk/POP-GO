@@ -11,11 +11,13 @@ class Point(object):
         self.r = r
         self.color = color
         self.is_active = True
+        self.is_visible = False
         self.instance = None
 
     def draw(self):
-        self.instance = self.canvas.create_oval(self.x - self.r, self.y - self.r, self.x + self.r, self.y + self.r,
-                                                fill=self.color, outline=self.color)
+        if self.is_visible:
+            self.instance = self.canvas.create_oval(self.x - self.r, self.y - self.r, self.x + self.r, self.y + self.r,
+                                                    fill=self.color, outline=self.color)
 
     def hide(self):
         self.canvas.delete(self.instance)
@@ -28,10 +30,13 @@ class Point(object):
     def cover(self):
         if self.is_active:
             self.r = Config.Point.COVER_RADIUS
+            self.is_visible = True
         self.update()
 
     def uncover(self):
         self.r = Config.Point.RADIUS
+        if self.color == Config.Point.UNUSED_COLOR:
+            self.is_visible = False
         self.update()
 
     def __str__(self):

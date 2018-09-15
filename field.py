@@ -9,7 +9,7 @@ import math
 def dist(x1, y1, x2, y2):
     return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
-color = {-1: Config.Point.PLAYER2_COLOR, 0: Config.Point.UNUSED_COLOR, 1: Config.Point.PLAYER1_COLOR}
+colors = {-1: Config.Point.PLAYER2_COLOR, 0: Config.Point.UNUSED_COLOR, 1: Config.Point.PLAYER1_COLOR}
 
 
 class Field(Canvas):
@@ -18,7 +18,7 @@ class Field(Canvas):
         l = Config.Field.CELL_SIZE
         field_size = (n + 1) * l
         super().__init__(master, width=field_size, height=field_size,
-                        bg='gray', highlightthickness=0)
+                         bg='gray', highlightthickness=0)
         self.focus_set()
         # draw border
         self.create_rectangle(1, 1, field_size - 1, field_size - 1, fill=Config.Field.CANV_COLOR, width=2)
@@ -68,10 +68,10 @@ class Field(Canvas):
     def display(self, hull, points):
         for i in range(len(points)):
             for j in range(len(points)):
-                self.points[i][j].color = color[points[j][i].color]
+                self.points[i][j].color = colors[points[j][i].color]
                 self.points[i][j].is_active = points[j][i].is_active
                 if self.points[i][j].color != Config.Point.UNUSED_COLOR:
-                    self.points[i][j].active = False
+                    self.points[i][j].is_active = False
                 self.points[i][j].update()
         # clear
         for obj in self.hulls:
