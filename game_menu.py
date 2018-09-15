@@ -15,10 +15,11 @@ class GameMenu(Canvas):
         super().__init__(master, width=size, height=hsize, highlightthickness=0)
         #frm=Frame(self, height=50, width=size, bd=2, bg='red')
         self.create_rectangle(0, 0, size, hsize, fill=col, width=0)
-        self.lb = Label(self, bg='white', fg='#f06c00', width=6, font='OldEnglishTextMT 43', text='Score :',
+        self.lb = Label(self, bg='white', fg='#f06c00', font='OldEnglishTextMT 43', text='Score :',
                         justify=LEFT)
         self.lba = Label(self, bg='white', fg='#f06c00', font='OldEnglishTextMT 43')
         self.lbb = Label(self, bg='white', fg='#f06c00', font='OldEnglishTextMT 43')
+        self.lbt = Label(self, bg='gray', fg='#f06c00', font='OldEnglishTextMT 43', text='Conced')
         self.lb.grid(row=0, column=0, sticky=W)
         self.lba.grid(row=1, column=0, sticky=W)
         self.lbb.grid(row=2, column=0, sticky=W)
