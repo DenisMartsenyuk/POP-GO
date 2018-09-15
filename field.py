@@ -59,5 +59,4 @@ class Field(Canvas):
         for (i, j) in hull:
             pointa = self.points[i[0]][i[1]]
             pointb = self.points[j[0]][j[1]]
-            print(pointa, pointb)
             self.hulls.append(self.create_line(pointa.x, pointa.y, pointb.x, pointb.y, fill=pointa.color, width=2))
