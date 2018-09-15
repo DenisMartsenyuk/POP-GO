@@ -13,7 +13,7 @@ root.title("POP-GO")
 root.resizable(height=False, width=False)
 
 
-field = Field(root, n=32, cell_size=Config.Field.cell_size)
+field = Field(root)
 '''canv = Canvas(root, width=680, height=720, bg='white')
 
 canv.pack()
