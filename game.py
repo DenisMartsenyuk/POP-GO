@@ -10,7 +10,7 @@ class Game(object):
 
         # call after making turn
         def choose_callback(i, j):
-            self.game_interface.lock()
+            #self.game_interface.lock()
             self.ans = self.logic.do_turn(i, j)
             print(self.ans)
             self.game_interface.display(self.ans, self.logic.count1, self.logic.count2, self.logic.table)
