@@ -26,7 +26,7 @@ class Logic:
             return False
         used[x][y] = 1
         inside.append([x, y])
-        ans = 0
+        ans = False
         ans = ans or self.dfs(used, x - 1, y, color, hull, inside)
         ans = ans or self.dfs(used, x + 1, y, color, hull, inside)
         ans = ans or self.dfs(used, x, y - 1, color, hull, inside)
@@ -35,11 +35,18 @@ class Logic:
 
     def update(self, x, y):
         used = [[False] * self.n for i in range(self.n)]
-        hull, inside = [], []
+        hull, inside, sum_hull = [], [], []
         if self.dfs(used, x, y, self.table[x][y].color, hull, inside):
+            hull.clear()
+            inside.clear()
+        else:
+            sum_hull += get_connect_pairs(hull)
+            for i in inside:
+                self.table[i[0]][i[1]].is_active = False
+                
 
 
     def do_turn(self, x, y):
         self.table[x][y].color = self.cur_player
         self.cur_player *= -1
-        #update(x, y)
+        return self.update(x, y)
