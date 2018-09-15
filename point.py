@@ -10,6 +10,7 @@ class Point(object):
         self.y = y
         self.r = r
         self.color = color
+        self.active = True
         self.instance = None
 
     def draw(self):
@@ -25,7 +26,8 @@ class Point(object):
         self.draw()
 
     def cover(self):
-        self.r = Config.Point.COVER_RADIUS
+        if self.active:
+            self.r = Config.Point.COVER_RADIUS
         self.update()
 
     def uncover(self):

@@ -10,7 +10,7 @@ class Config:
     class Point:
         PLAYER1_COLOR = 'red'
         PLAYER2_COLOR = 'blue'
-        UNUSED_COLOR = 'red'
+        UNUSED_COLOR = 'gray'
         RADIUS = 2
         COVER_RADIUS = 5
 
