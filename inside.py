@@ -7,7 +7,10 @@ class Point:
 class Logic:
     def __init__(self, size):
         self.n = size
-        self.table = [[Point()] * size for i in range(size)]
+        self.table = [[None] * size for i in range(size)]
+        for i in range(self.n):
+            for j in range(self.n):
+                self.table[i][j] = Point()
         self.count1 = 0
         self.count2 = 0
         self.cur_player = 1
@@ -17,21 +20,21 @@ class Logic:
 
     def get_connect_pairs(self, hull):
         ans = []
-        for i in range(hull.len()):
-            for j in range(i + 1, hull.len()):
+        for i in range(len(hull)):
+            for j in range(i + 1, len(hull)):
                 if self.is_nearby(hull[i], hull[j]):
                     ans.append([hull[i], hull[j]])
         return ans
 
     def update_counters(self):
-        count1, count2 = 0
+        self.count1, self.count2 = 0, 0
         for line in self.table:
             for pt in line:
                 if (not pt.is_active):
                     if pt.color == 1:
-                        count2 += 1
+                        self.count2 += 1
                     if pt.color == -1:
-                        count1 += 1
+                        self.count1 += 1
 
     def out_of_board(self, x, y):
         return x < 0 or y < 0 or x >= self.n or y >= self.n
@@ -58,22 +61,26 @@ class Logic:
         used = [[False] * self.n for i in range(self.n)]
         hull, inside, sum_hull = [], [], []
         if self.dfs(used, x, y, self.table[x][y].color, hull, inside):
-            hull.clear()
-            inside.clear()
+            for i, j in inside:
+                used[i][j] = False
         else:
             sum_hull += self.get_connect_pairs(hull)
-            for i in inside:
-                self.table[i[0]][i[1]].is_active = False
+            for i, j in inside:
+                self.table[i][j].is_active = False
+        hull.clear()
+        inside.clear()
         for i in range(self.n):
             for j in range(self.n):
-                if not used[i][j]:
-                    if self.dfs(used, x, y, self.table[x][y].color, hull, inside):
-                        hull.clear()
-                        inside.clear()
+                if (not used[i][j]) and self.table[i][j].color != 0:
+                    if self.dfs(used, i, j, self.table[i][j].color, hull, inside):
+                        for i1, j1 in inside:
+                            used[i1][j1] = False
                     else:
                         sum_hull += self.get_connect_pairs(hull)
-                        for i in inside:
-                            self.table[i[0]][i[1]].is_active = False
+                        for i1, j1 in inside:
+                            self.table[i1][j1].is_active = False
+                    hull.clear()
+                    inside.clear()
         self.update_counters()
         return sum_hull
 
