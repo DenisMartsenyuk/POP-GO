@@ -20,3 +20,6 @@ class Config:
     class GameMenu:
         COLOR = 'white'
         SIZE = 250
+        COLORPRESS = 'gray'
+        COLORFG = 'red'
+        FONT = 'Ubuntu 32'

@@ -1,32 +1,54 @@
 from tkinter import *
 from config import *
 from random import randint
+from button import *
 
 
 class GameMenu(Canvas):
     def __init__(self, master):
         size = Config.GameMenu.SIZE
         col = Config.GameMenu.COLOR
+        colp = Config.GameMenu.COLORPRESS
+        colfg = Config.GameMenu.COLORFG
         n = Config.Field.CELL_COUNT
         l = Config.Field.CELL_SIZE
-
+        a = randint(0, 100)
+        b = randint(0, 100)
+        fnt = Config.GameMenu.FONT
         hsize = (n + 1) * l
-        super().__init__(master, width=size, height=hsize, highlightthickness=0)
-        #frm=Frame(self, height=50, width=size, bd=2, bg='red')
-        self.create_rectangle(0, 0, size, hsize, fill=col, width=0)
-        self.lb = Label(self, bg='white', fg='#f06c00', font='OldEnglishTextMT 43', text='Score :',
-                        justify=LEFT)
-        self.lba = Label(self, bg='white', fg='#f06c00', font='OldEnglishTextMT 43')
-        self.lbb = Label(self, bg='white', fg='#f06c00', font='OldEnglishTextMT 43')
-        self.lbt = Label(self, bg='gray', fg='#f06c00', font='OldEnglishTextMT 43', text='Conced')
-        self.lb.grid(row=0, column=0, sticky=W)
-        self.lba.grid(row=1, column=0, sticky=W)
-        self.lbb.grid(row=2, column=0, sticky=W)
+        k = 53
+        b = 50
+        a = k - 27
+        c = k + 142
         self.you = 'You: '
         self.op = 'Enemy: '
-        self.score(0, 0)
-        #frm.pack()
+        super().__init__(master, width=size, height=hsize, highlightthickness=0)
+        self.lb = Label(self, bg=col, fg=colfg, font=fnt, text='Score')
+        self.lba = Label(self, bg=col, fg=colfg, font=fnt)
+        self.lbb = Label(self, bg=col, fg=colfg, font=fnt)
+        #self.lbc = Label(self, bg=col, fg=colfg, font='Ubuntu 41', text='Concede')
+
+        #self.lbc.bind('<ButtonPress-1>', press)
+        #self.lbc.bind('<ButtonRelease-1>', )
+
+        self.btn = But(self, self)
+        self.btn.bind('<ButtonPress-1>', pressb)
+        self.btn.bind('<ButtonRelease-1>', releaseb)
+
+        self.lb.place(x=0, y=0)
+        self.lba.place(x=0, y=60)
+        self.lbb.place(x=0, y=120)
+        self.btn.place(x=k, y=hsize - 52)
+        #self.lbc.place(x=k, y=hsize - 52)
+
+        self.score(a, b)
 
     def score(self, a, b):
         self.lba['text'] = self.you + str(a)
         self.lbb['text'] = self.op + str(b)
+
+def pressb(event):
+    event.widget.press()
+
+def releaseb(event):
+    event.widget.release()
