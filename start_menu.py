@@ -1,9 +1,11 @@
 from tkinter import *
+from
 
 
 class StartMenu(Toplevel):
+    col=Config.StartMenu.COLOR
     def __init__(self, master):
-        super().__init__(master, bg='green')
+        super().__init__(master, bg=col)
         self.title('POP-go')
         self.geometry('200x100+500+500')
         self.overrideredirect(1)

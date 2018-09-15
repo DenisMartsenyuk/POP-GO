@@ -10,32 +10,13 @@ root = Tk()
 root.withdraw()
 sm = StartMenu(root)
 root.title("POP-GO")
+root_size = (Config.Field.CELL_COUNT + 1) * Config.Field.CELL_SIZE + 20
+root.geometry('{}x{}'.format(root_size, root_size))
 root.resizable(height=False, width=False)
 
 
-field = Field(root)
-'''canv = Canvas(root, width=680, height=720, bg='white')
-
-canv.pack()
-canv.create_rectangle(20, 20, 660, 660, fill="white", outline="black", width=3)
-
-for i in range(32):
-    canv.create_line(i * 20 + 20, 20, i * 20 + 20, 660, width=1)
-    canv.create_line(20, i * 20 + 20, 660, i * 20 + 20, width=1)
-
-
-points = []
-
-for i in range(1, 32):
-    for j in range(1, 32):
-        x = 20 + 20 * i
-        y = 20 + 20 * j
-        points.append(Point(canv, x, y, 2, 'red'))
-
-
-for i in points:
-    i.draw()
-'''
+field = Field(root, lambda i, j: print(i, j))
+field.place(x=Config.Field.CANV_INDENTS, y=Config.Field.CANV_INDENTS)
 root.mainloop()
 
 

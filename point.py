@@ -1,5 +1,6 @@
 from tkinter import *
 
+from config import *
 
 class Point(object):
     def __init__(self, canvas: Canvas, x, y, r, color):
@@ -23,9 +24,9 @@ class Point(object):
         self.draw()
 
     def cover(self):
-        self.r += 2
+        self.r = Config.Point.COVER_RADIUS
         self.update()
 
     def uncover(self):
-        self.r -= 2
+        self.r = Config.Point.RADIUS
         self.update()
