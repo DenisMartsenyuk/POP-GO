@@ -12,10 +12,8 @@ class Logic:
         self.count2 = 0
         self.cur_player = 1
 
-
     def is_nearby(self, a, b):
         return (b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2 <= 2
-
 
     def get_connect_pairs(self, hull):
         ans = []
@@ -24,7 +22,6 @@ class Logic:
                 if self.is_nearby(hull[i], hull[j]):
                     ans.append([hull[i], hull[j]])
         return ans
-
 
     def update_counters(self):
         count1, count2 = 0
@@ -36,10 +33,8 @@ class Logic:
                     if pt.color == -1:
                         count1 += 1
 
-
     def out_of_board(self, x, y):
         return x < 0 or y < 0 or x >= self.n or y >= self.n
-
 
     # True если пришли к границе, False - не пришли
     def dfs(self, used, x, y, color, hull, inside):
@@ -58,7 +53,6 @@ class Logic:
         ans = ans or self.dfs(used, x, y - 1, color, hull, inside)
         ans = ans or self.dfs(used, x, y + 1, color, hull, inside)
         return ans
-
 
     def update(self, x, y):
         used = [[False] * self.n for i in range(self.n)]
@@ -82,7 +76,6 @@ class Logic:
                             self.table[i[0]][i[1]].is_active = False
         self.update_counters()
         return sum_hull
-
 
     def do_turn(self, x, y):
         self.table[x][y].color = self.cur_player
