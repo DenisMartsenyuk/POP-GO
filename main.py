@@ -5,20 +5,27 @@ from start_menu import StartMenu
 from field import Field
 from game_menu import GameMenu
 from config import Config
+from game_menu import GameMenu
+
+n = Config.Field.CELL_COUNT
+l = Config.Field.CELL_SIZE
+hsize = (n + 1) * l + 2 * Config.Field.CANV_INDENTS
 
 root = Tk()
-#root.withdraw()
-#sm = StartMenu(root)
+root.withdraw()
+sm = StartMenu(root)
 root.title("POP-GO")
-root_size = (Config.Field.CELL_COUNT + 1) * Config.Field.CELL_SIZE + 20
-root.geometry('{}x{}'.format(root_size, root_size))
+root_size = ((Config.Field.CELL_COUNT + 1) * l + Config.GameMenu.SIZE + 3 * Config.Field.CANV_INDENTS)
+root.geometry('{}x{}'.format(root_size, hsize))
 root.resizable(height=False, width=False)
 
 
 field = Field(root, lambda i, j: print(i, j))
-h = [((10, 10), (11, 11)), ((11, 11), (12, 11)), ((13, 13), (15, 15)), ((14, 15), (13, 15))]
 field.place(x=Config.Field.CANV_INDENTS, y=Config.Field.CANV_INDENTS)
-field.draw_hull(h)
-#field.draw_hull([])
+
+game_menu = GameMenu(root)
+game_menu.place(x=2 * Config.Field.CANV_INDENTS + (n + 1) * l, y=Config.Field.CANV_INDENTS)
+
 root.mainloop()
+
 
