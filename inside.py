@@ -43,10 +43,10 @@ class Logic:
     def dfs(self, used, x, y, color, hull, inside):
         if self.out_of_board(x, y):
             return True
-        if used[x][y]:
-            return False
         if self.table[x][y].is_active and self.table[x][y].color == -color:
             hull.append([x, y])
+            return False
+        if used[x][y]:
             return False
         used[x][y] = True
         inside.append([x, y])
@@ -65,6 +65,8 @@ class Logic:
                 used[i][j] = False
         else:
             sum_hull += self.get_connect_pairs(hull)
+            for i, j in hull:
+                used[i][j] = True
             for i, j in inside:
                 self.table[i][j].is_active = False
         hull.clear()
@@ -76,6 +78,8 @@ class Logic:
                         for i1, j1 in inside:
                             used[i1][j1] = False
                     else:
+                        for i, j in hull:
+                            used[i][j] = True
                         sum_hull += self.get_connect_pairs(hull)
                         for i1, j1 in inside:
                             self.table[i1][j1].is_active = False
