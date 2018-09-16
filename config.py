@@ -31,3 +31,7 @@ class Config:
         COLORFG = '#ffca00'
         SIZE = 275
         FONT = 'Ubuntu 43'
+
+    class Client:
+        HOST = "ejudge.mikkerlo.ru"
+        PORT = 1337
