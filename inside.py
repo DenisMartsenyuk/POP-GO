@@ -59,12 +59,14 @@ class Logic:
 
     def update(self, x, y):
         used = [[False] * self.n for i in range(self.n)]
-        #new_active = [[False] * self.n for i in range(self.n)]
-        hull, inside, sum_hull = [], [], []
+        hull, inside, sum1, sum2 = [], [], [], []
         if self.dfs(used, x, y, self.table[x][y].color, hull, inside):
             self.table[x][y].is_active = True
         else:
-            sum_hull += hull
+            if self.table[x][y].color == 1:
+                sum1 += hull
+            else:
+                sum2 += hull
             for i, j in inside:
                 self.table[i][j].is_active = False
         hull.clear()
@@ -76,13 +78,16 @@ class Logic:
                     if self.dfs(used, i, j, self.table[i][j].color, hull, inside):
                         self.table[i][j].is_active = True
                     else:
-                        sum_hull += hull
+                        if self.table[i][j].color == 1:
+                            sum1 += hull
+                        else:
+                            sum2 += hull
                         for i1, j1 in inside:
                             self.table[i1][j1].is_active = False
                     hull.clear()
                     inside.clear()
         self.update_counters()
-        return self.get_connect_pairs(sum_hull)
+        return self.get_connect_pairs(sum1) + self.get_connect_pairs(sum2)
 
     def do_turn(self, x, y):
         self.table[x][y].color = self.cur_player
