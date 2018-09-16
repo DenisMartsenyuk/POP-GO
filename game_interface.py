@@ -9,6 +9,7 @@ from config import *
 class GameInterface(Tk):
     def __init__(self, choose_point_callback):
         super().__init__()
+        self.config(bg=Config.GUI.COLOR)
         self.withdraw()
         self.start_menu = StartMenu(self)
 

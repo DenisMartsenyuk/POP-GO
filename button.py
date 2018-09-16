@@ -12,7 +12,7 @@ def hide(event):
 class But(Label):
     def __init__(self, master, rt):
         self.size = Config.GameMenu.SIZE
-        self.col = Config.GameMenu.COLOR
+        self.col = Config.GUI.COLOR
         self.colp = Config.GameMenu.COLORPRESS
         self.colfg = Config.GameMenu.COLORFG
         self.fnt = Config.GameMenu.FONT

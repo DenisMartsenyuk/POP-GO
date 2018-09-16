@@ -7,13 +7,11 @@ from button import *
 class GameMenu(Canvas):
     def __init__(self, master):
         size = Config.GameMenu.SIZE
-        col = Config.GameMenu.COLOR
+        col = Config.GUI.COLOR
         colp = Config.GameMenu.COLORPRESS
         colfg = Config.GameMenu.COLORFG
         n = Config.Field.CELL_COUNT
         l = Config.Field.CELL_SIZE
-        a = randint(0, 100)
-        b = randint(0, 100)
         fnt = Config.GameMenu.FONT
         hsize = (n + 1) * l
         k = 53
@@ -22,7 +20,7 @@ class GameMenu(Canvas):
         c = k + 142
         self.you = 'You: '
         self.op = 'Enemy: '
-        super().__init__(master, width=size, height=hsize, highlightthickness=0)
+        super().__init__(master, width=size, height=hsize, bg=col, highlightthickness=0)
         self.lb = Label(self, bg=col, fg=colfg, font=fnt, text='Score')
         self.lba = Label(self, bg=col, fg=colfg, font=fnt)
         self.lbb = Label(self, bg=col, fg=colfg, font=fnt)
@@ -41,7 +39,7 @@ class GameMenu(Canvas):
         self.btn.place(x=k, y=hsize - 52)
         #self.lbc.place(x=k, y=hsize - 52)
 
-        self.score(a, b)
+        self.score(0, 0)
 
     def score(self, a, b):
         self.lba['text'] = self.you + str(a)
