@@ -11,14 +11,14 @@ class Game(object):
     def __init__(self):
         self.logic = Logic(Config.Field.CELL_COUNT)
         self.client = Client()
-        self.client.start()
         self.client.connect()
+        self.client.start()
         num_player = str(self.client.client_sock.recv(1024))
         print(num_player)
 
         def wait_stroke():
             if self.client.have_data:
-                data = self.client.data
+                data = self.client.get_data()
                 if data == "Connection lost":
                     print("Connection lost")
                 else:
@@ -37,10 +37,10 @@ class Game(object):
 
         # call after making turn
         def choose_callback(i, j):
-            self.game_interface.lock()
             msg = '{} {}'.format(i, j)
             #b = bytes(mystring, 'utf-8')
-            print('>> ' + msg)
+            print('Send: ' + msg)
+            self.game_interface.lock()
             self.client.client_sock.sendall(bytes(msg, 'utf-8'))
             self.ans = self.logic.do_turn(i, j)
             self.game_interface.display(self.ans, self.logic.count1, self.logic.count2, self.logic.table)
@@ -52,6 +52,7 @@ class Game(object):
             self.stroke = True
         if num_player == "b'1'":
             self.stroke = False
+            self.game_interface.lock()
             wait()
 
         self.game_interface.mainloop()

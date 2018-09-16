@@ -35,7 +35,7 @@ class Point(object):
 
     def uncover(self):
         self.r = Config.Point.RADIUS
-        if self.color == Config.Point.UNUSED_COLOR:
+        if self.is_active:
             self.is_visible = False
         self.update()
 

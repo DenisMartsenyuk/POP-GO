@@ -40,6 +40,7 @@ class Field(Canvas):
         def press(event):
             if not self.locked:
                 point = self.nearest_active_point(event.x, event.y)
+                print(point)
                 if point is not None:
                     choose_point_callback(point.y // Config.Field.CELL_SIZE - 1, point.x // Config.Field.CELL_SIZE - 1)
 
@@ -69,9 +70,10 @@ class Field(Canvas):
         for i in range(len(points)):
             for j in range(len(points)):
                 self.points[i][j].color = colors[points[j][i].color]
-                self.points[i][j].is_active = points[j][i].is_active
+                self.points[i][j].is_active = points[j][i].is_active # for points in hull
                 if self.points[i][j].color != Config.Point.UNUSED_COLOR:
                     self.points[i][j].is_active = False
+                    self.points[i][j].is_visible = True
                 self.points[i][j].update()
         # clear
         for obj in self.hulls:
@@ -84,9 +86,11 @@ class Field(Canvas):
             self.hulls.append(self.create_line(point_a.x, point_a.y, point_b.x, point_b.y, fill=point_a.color, width=2))
 
     def lock(self):
+        print('Locked fld')
         self.locked = True
         if self.covered_point is not None:
             self.covered_point.uncover()
 
     def unlock(self):
+        print('Unclock fld')
         self.locked = False

@@ -13,6 +13,7 @@ class Client(Thread):
         self.commands = Queue()
         self.data = None
         self.have_data = False
+        self.running = False
 
     def connect(self):
         print("Wait to connection server")
@@ -31,13 +32,17 @@ class Client(Thread):
         print("Connected to the server")
 
     def run(self):
-        while True:
+        self.running = True
+        while self.running:
             command = self.commands.get()
             if command == 'receive':
                 self.have_data = False
                 self.data = self.client_sock.recv(1024).decode('utf-8')
-                print('Data: ', self.data)
                 self.have_data = True
+
+    def get_data(self):
+        self.have_data = False
+        return self.data
 
     def receive(self):
         self.commands.put('receive')

@@ -11,7 +11,7 @@ class Config:
     class GUI:
         #COLOR = '#c2d2e9'
         #COLOR = '#c8bd00'
-        COLOR = '#75706f'
+        COLOR = 'white'
 
     class Point:
         PLAYER1_COLOR = 'red'
@@ -22,15 +22,20 @@ class Config:
 
     class StartMenu:
         COLORPRESS = 'gray'
-        COLORFG = '#ffca00'
+        COLORFG = '#00aab7'
         FONT = 'Ubuntu 64'
         GEOM = '600x170+200+200'
 
+    class Sph:
+        r = 40
+
     class GameMenu:
-        COLORPRESS = '#f9ec8f'
-        COLORFG = '#ffca00'
-        SIZE = 275
-        FONT = 'Ubuntu 43'
+        COLORPRESS = '#007A83'
+        COLORBG = '#00aab7'
+        COLORTEXT = 'white'
+        COLORFG = '#00aab7'
+        SIZE = 160
+        FONT = 'BebasNeueRegular 54'
 
     class Client:
         HOST = "ejudge.mikkerlo.ru"
