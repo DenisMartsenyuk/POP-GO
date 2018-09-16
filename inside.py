@@ -64,7 +64,7 @@ class Logic:
             for i, j in inside:
                 used[i][j] = False
         else:
-            sum_hull += self.get_connect_pairs(hull)
+            sum_hull += hull
             for i, j in inside:
                 self.table[i][j].is_active = False
         hull.clear()
@@ -76,13 +76,13 @@ class Logic:
                     if self.dfs(used, i, j, self.table[i][j].color, hull, inside):
                         self.table[i][j].is_active = True
                     else:
-                        sum_hull += self.get_connect_pairs(hull)
+                        sum_hull += hull
                         for i1, j1 in inside:
                             self.table[i1][j1].is_active = False
                     hull.clear()
                     inside.clear()
         self.update_counters()
-        return sum_hull
+        return self.get_connect_pairs(sum_hull)
 
     def do_turn(self, x, y):
         self.table[x][y].color = self.cur_player
