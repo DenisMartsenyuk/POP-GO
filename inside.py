@@ -59,10 +59,10 @@ class Logic:
 
     def update(self, x, y):
         used = [[False] * self.n for i in range(self.n)]
+        #new_active = [[False] * self.n for i in range(self.n)]
         hull, inside, sum_hull = [], [], []
         if self.dfs(used, x, y, self.table[x][y].color, hull, inside):
-            for i, j in inside:
-                used[i][j] = False
+            self.table[x][y].is_active = True
         else:
             sum_hull += hull
             for i, j in inside:
