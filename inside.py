@@ -65,21 +65,17 @@ class Logic:
                 used[i][j] = False
         else:
             sum_hull += self.get_connect_pairs(hull)
-            for i, j in hull:
-                used[i][j] = True
             for i, j in inside:
                 self.table[i][j].is_active = False
         hull.clear()
         inside.clear()
         for i in range(self.n):
             for j in range(self.n):
-                if (not used[i][j]) and self.table[i][j].color != 0:
+                if self.table[i][j].color != 0:
+                    used = [[False] * self.n for i in range(self.n)]
                     if self.dfs(used, i, j, self.table[i][j].color, hull, inside):
-                        for i1, j1 in inside:
-                            used[i1][j1] = False
+                        self.table[i][j].is_active = True
                     else:
-                        for i, j in hull:
-                            used[i][j] = True
                         sum_hull += self.get_connect_pairs(hull)
                         for i1, j1 in inside:
                             self.table[i1][j1].is_active = False
